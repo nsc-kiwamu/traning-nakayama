@@ -90,7 +90,18 @@ public class Problem01 {
         System.out.println("");
     }
 
-    public static void outputAnyNumber(List<Integer> dataList) {};
+    public static void outputAnyNumber(List<Integer> dataList) {
+
+        System.out.println("3の倍数一覧");
+
+        // 3で割り切れたら3の倍数
+        dataList.stream()
+        .filter(s -> s % 3 == 0 )
+        .map(s -> "[" + s + "]" )
+        .forEach(System.out::print);
+
+        System.out.println("");
+    };
 
     public static void outputSortOddNumber(List<Integer> dataList) {};
 
