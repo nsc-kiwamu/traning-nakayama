@@ -25,14 +25,68 @@ public class Problem04 {
 
         /* -- ここから問題 -- */
         /* 国毎の人口を集計するメソッド(aggregateNumber)を実装せよ
-         *
+         *private static void aggregateNumber(List<Country> countryList) {
+
+    int japan = 0;
+    int usa = 0;
+    int china = 0;
+    int other = 0;
+
+    for (Country country : countryList) {
+        switch (country) {
+            case JAPAN:
+                japan++;
+                break;
+            case USA:
+                usa++;
+                break;
+            case CHINA:
+                china++;
+                break;
+            default:
+                other++;
+                break;
+        }
+    }
+
+    System.out.println("人口集計結果");
+    System.out.println("JAPAN : " + japan);
+    System.out.println("USA   : " + usa);
+    System.out.println("CHINA : " + china);
+    System.out.println("OTHER : " + other);
+}
          *
          */
         aggregateNumber(countryList);
 
         /* -- ここから問題 -- */
         /* 列挙値「Country」に新しい国を追加し、再度人口を集計せよ
-         *
+         *public enum Country {
+
+    JAPAN(1),
+    USA(2),
+    CHINA(3),
+    KOREA(4);   // ← 追加
+
+    private int number;
+
+    Country(int number) {
+        this.number = number;
+    }
+
+    public int getNumber() {
+        return number;
+    }
+
+    public static Country getCountry(int number) {
+        for (Country c : values()) {
+            if (c.number == number) {
+                return c;
+            }
+        }
+        return null;
+    }
+}
          *
          */
 

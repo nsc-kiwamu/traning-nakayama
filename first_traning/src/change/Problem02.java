@@ -55,14 +55,14 @@ public class Problem02 {
 			for (int j = i + 1; j < testList.size(); j++) {
 
 				/*-- 問題 ここのif文内の「true」を変更して実装せよ--*/
-				//                if (true) {
-				//                    tmpData = testList.get(i);
-				//                    testList.set(i, testList.get(j));
-				//                    testList.set(j, tmpData);
-				//                }
+				// 昇順：前の値が後ろの値より大きい場合に交換
+	            if (testList.get(i) > testList.get(j)) {
+	                tmpData = testList.get(i);
+	                testList.set(i, testList.get(j));
+	                testList.set(j, tmpData);
+	            }
 
-
-				checkSort(testList, i, j);
+	            checkSort(testList, i, j);
 			}
 		}
 
@@ -70,13 +70,13 @@ public class Problem02 {
 //				.forEach(System.out::println);
 
 		// 処理時間測定用に終了時間を取得
-		long endTime = System.currentTimeMillis();
+		 long endTime = System.currentTimeMillis();
 
 		// 処理時間を出力
-		System.out.println("処理時間:" + DateUtil.getProcTime(startTime, endTime));
-		System.out.println("------------------------------------------");
+	    System.out.println("処理時間:" + DateUtil.getProcTime(startTime, endTime));
+	    System.out.println("------------------------------------------");
+    }
 
-	}
 
 	 /** ソート中のリストの状態を出力し、入れ替え判定中の要素には"*"を付与する
 	 * @param testList 出力対象リスト

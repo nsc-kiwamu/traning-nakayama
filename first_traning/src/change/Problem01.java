@@ -32,9 +32,45 @@ public class Problem01 {
 
         /* -- ここから問題 -- */
         // 3の倍数の一覧を出力
+        
+        /**
+         * 引数で受け取った数値から3の倍数のみを出力する。
+         * @param dataList 振り分け対象データ
+         */
+        public static void outputAnyNumber(List<Integer> dataList) {
+
+            System.out.println("3の倍数一覧");
+
+            dataList.stream()
+                    .filter(s -> s % 3 == 0)
+                    .map(s -> "[" + s + "]")
+                    .forEach(System.out::print);
+
+            System.out.println("");
+        }
+
+        
         outputAnyNumber(testList);
 
         // 奇数の一覧を昇順ソートして出力
+        
+        /**
+         * 引数で受け取った数値から奇数のみを昇順ソートして出力する。
+         * @param dataList 振り分け対象データ
+         */
+        public static void outputSortOddNumber(List<Integer> dataList) {
+
+            System.out.println("奇数一覧（昇順）");
+
+            dataList.stream()
+                    .filter(s -> s % 2 != 0)   // 奇数のみ
+                    .sorted()                 // 昇順ソート
+                    .map(s -> "[" + s + "]")
+                    .forEach(System.out::print);
+
+            System.out.println("");
+        }
+        
         outputSortOddNumber(testList);
 
     }
@@ -75,6 +111,9 @@ public class Problem01 {
     /**
      * 引数で受け取った数値から奇数のみを出力する。
      * @param testDatalist 振り分け対象データ
+     * 
+     * 
+     * 
      */
     public static void outputOddNumber(List<Integer> dataList) {
 
