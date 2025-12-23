@@ -11,8 +11,10 @@ public enum Sushi {
     TYUTORO(3, "中トロ"),
     UNI(4, "うに"),
     OOTORO(5, "大トロ"),
-    SAMON(3,"サーモン"),
-    AMAEBI(1,"甘エビ");
+    // 2025 12/23 NAKAYAMA
+    SAMON(6,"サーモン"),
+    AMAEBI(7,"甘エビ");
+	// 2025 12/23 E.NAKAYAMA
 
     /** 商品番号 */
     private int number = 0;
