@@ -17,6 +17,6 @@ public class Tree extends Plant {
 
     @Override
     public void photosynthesis() {
-        System.out.println("木は光合成をしている");
+        System.out.println(this.getClass().getSimpleName() + "が光合成をしている");
     }
 }

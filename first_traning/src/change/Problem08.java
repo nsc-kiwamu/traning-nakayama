@@ -1,12 +1,14 @@
 package change;
 
-// 2025/12/23 S.NAYAYAMA
+//2025/12/23 NAYAYAMA add_st
 import hierarchy.life.Dog;
+//2025/12/23 NAYAYAMA add_end
 import hierarchy.life.Earth;
 import hierarchy.life.Mouse;
 import hierarchy.life.Tiger;
+//2025/12/23 NAYAYAMA add_st
 import hierarchy.life.Tree;
-		// 2025/12/23 E.NAYAYAMA
+//2025/12/23 NAYAYAMA add_end
 
 /**
  * 継承の問題
@@ -21,19 +23,21 @@ public class Problem08 {
     public static void main(String[] args) {
         Tiger tiger = new Tiger(15);
         Mouse mouse = new Mouse(2);
+        // 2025/12/23 NAYAYAMA add_st
+        Dog dog = new Dog(12);
+        Tree tree = new Tree(100);
+        // 2025/12/23 NAYAYAMA add_end
 
         Earth earth = Earth.getInstance();
         earth.birthCreature(tiger);
         earth.birthCreature(mouse);
+        // 2025/12/23 NAYAYAMA add_st
+        earth.birthCreature(dog);
+        earth.birthCreature(tree);
+        // 2025/12/23 NAYAYAMA add_end
         earth.timeElapsed();
         
-     // 2025/12/23 S.NAYAYAMA
-        Dog dog = new Dog(12);
-        earth.birthCreature(dog);
 
-        Tree tree = new Tree(100);
-        earth.birthCreature(tree);
-     // 2025/12/23 E.NAYAYAMA
 
         // 10年経過させる
         for (int i = 1; i <= 10; i++) {
