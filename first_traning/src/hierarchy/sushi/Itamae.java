@@ -58,6 +58,13 @@ public class Itamae {
                 targetTray = GoldTray.class;
             } else if ("中トロ".equals(sushi.getName())) {
                 targetTray = RedTray.class;
+        // 2025 12/23 S.NAKAYAMA       
+            } else if ("サーモン".equals(sushi.getName())) {
+                targetTray = YellowTray.class;
+       
+            } else if ("甘エビ".equals(sushi.getName())) {
+                targetTray = GreenTray.class; 
+        // 2025 12/23 E.NAKAYAMA
             } else {
                 targetTray = BlueTray.class;
             }
