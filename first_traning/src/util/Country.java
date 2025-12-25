@@ -12,7 +12,10 @@ public enum Country {
     GBR(4, "イギリス"),
     ITR(5, "イタリア"),
     FRA(6, "フランス"),
-    AUS(7, "オーストラリア");
+    AUS(7, "オーストラリア"),
+	//2025/12/25 NAYAYAMA add_st
+	KOR(8, "韓国");
+	//2025/12/25 NAYAYAMA add_end
 
     /** 国番号 */
     private int number = 0;

@@ -67,5 +67,58 @@ public class Problem04 {
 
     private static void aggregateNumber(List<Country> countryList) {
         // ※ 判定にif文ではなく、switch文を使用すること
+    	//2025/12/25 NAYAYAMA add_st
+    	 int jpn = 0;
+    	    int usa = 0;
+    	    int chn = 0;
+    	    int ind = 0;
+    	    int gbr = 0;
+    	    int itr = 0;
+    	    int fra = 0;
+    	    int aus = 0;
+    	    int kor = 0;
+
+    	    for (Country country : countryList) {
+    	        switch (country) {
+    	            case JPN:
+    	                jpn++;
+    	                break;
+    	            case USA:
+    	                usa++;
+    	                break;
+    	            case CHN:
+    	                chn++;
+    	                break;
+    	            case IND:
+    	                ind++;
+    	                break;
+    	            case GBR:
+    	                gbr++;
+    	                break;
+    	            case ITR:
+    	                itr++;
+    	                break;
+    	            case FRA:
+    	                fra++;
+    	                break;
+    	            case AUS:
+    	                aus++;
+    	                break;
+    	            case KOR:
+    	                kor++;
+    	                break;
+    	        }
+    	    }
+
+    	    System.out.println("日本 : " + jpn);
+    	    System.out.println("アメリカ : " + usa);
+    	    System.out.println("中国 : " + chn);
+    	    System.out.println("インド : " + ind);
+    	    System.out.println("イギリス : " + gbr);
+    	    System.out.println("イタリア : " + itr);
+    	    System.out.println("フランス : " + fra);
+    	    System.out.println("オーストラリア : " + aus);
+    	    System.out.println("韓国 : " + kor);
+    	  //2025/12/25 NAYAYAMA add_end
     }
 }
