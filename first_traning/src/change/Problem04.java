@@ -122,3 +122,4 @@ public class Problem04 {
     	  //2025/12/25 NAYAYAMA add_end
     }
 }
+
