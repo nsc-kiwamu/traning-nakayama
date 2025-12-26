@@ -3,13 +3,13 @@ package change;
 import hierarchy.sushi.Itamae;
 
 // 回転寿司を注文する問題
-public class Problem07{
+public class Problem07 {
 
     /**
      * 回転寿司を注文する
      * @param args
      */
-    public static void main(String[] args){
+    public static void main(String[] args) {
 
         Itamae itamae = new Itamae();
         itamae.order("たまご");
@@ -19,18 +19,23 @@ public class Problem07{
         itamae.order("うに");
         itamae.order("大トロ");
         itamae.order("まぐろ");
-
+        // 2025/12/23　S.NAKAYAMA 黄皿「サーモン」3皿、緑皿「甘エビ」1皿を追加　        
+        itamae.order("サーモン");
+        itamae.order("サーモン");
+        itamae.order("サーモン");
+        itamae.order("甘エビ");
+        //2025/12/23　E.NAKAYAMA
         System.out.println("注文票-------------");
         itamae.payment();
         System.out.println("-------------------");
 
-
         /* -- ここから問題 -- */
-
+        
         // Trayクラスを継承した新たな黄皿、及び緑皿を作れ
-        // なお、黄皿は1皿210円、緑皿は1皿420円とする。
-
+     	// なお、黄皿は1皿210円、緑皿は1皿420円とする。
         // 黄皿である「サーモン」を3皿、緑皿である「甘エビ」を1皿を追加注文せよ
 
     }
 }
+        
+
