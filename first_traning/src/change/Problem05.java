@@ -81,7 +81,23 @@ public class Problem05 {
         /* -- ここから問題 -- */
         // Comparatorのcompareメソッドを実装し、以下の順序となるようなソート処理を実装せよ
         // 15が一番前になる、7が一番後ろになる、それ以外は昇順になる
+        //2025/12/26 NAYAYAMA add_st
         System.out.println("ソート4(問題)");
+        dataList.stream().sorted(new Comparator<Integer>() {
+            @Override
+            public int compare(Integer l, Integer r) {
+
+                if (l == 15 && r != 15) return -1;
+                if (r == 15 && l != 15) return 1;
+
+                if (l == 7 && r != 7) return 1;
+                if (r == 7 && l != 7) return -1;
+
+                return l - r;
+            }
+        }).map(s -> "[" + s + "]").forEach(System.out::print);
+        System.out.println();
+      //2025/12/26 NAYAYAMA add_end
 
     }
 }
