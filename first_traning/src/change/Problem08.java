@@ -1,6 +1,6 @@
 package change;
 
-//2025/12/23 NAYAYAMA add_st
+//2025/12/23 NAKAYAMA add_st
 import hierarchy.life.Dog;
 //2025/12/23 NAYAYAMA add_end
 import hierarchy.life.Earth;
@@ -8,7 +8,7 @@ import hierarchy.life.Mouse;
 import hierarchy.life.Tiger;
 //2025/12/23 NAYAYAMA add_st
 import hierarchy.life.Tree;
-//2025/12/23 NAYAYAMA add_end
+//2025/12/23 NAKAYAMA add_end
 
 /**
  * 継承の問題

@@ -39,20 +39,20 @@ public class Problem06 {
 
             while (leftPointer <= rightPointer) {
                 // 左から基準値を超える要素を探す。（存在しない場合は基準値自体が対象となる）
-            	//2025/1/5 NAYAYAMA add_st
+            	//2025/1/5 NAKAYAMA add_st
                 while (array[leftPointer] < pivotData) {
-                //2025/1/5 NAYAYAMA add_end
+                //2025/1/5 NAKAYAMA add_end
                     leftPointer++;
                 }
                 // 右から基準値未満の要素を探す。（存在しない場合は基準値自体が対象となる）
-                //2025/1/5 NAYAYAMA add_st
+                //2025/1/5 NAKAYAMA add_st
                 while (array[rightPointer] > pivotData) {
-                //2025/1/5 NAYAYAMA add_end
+                //2025/1/5 NAKAYAMA add_end
                     rightPointer--;
                 }
-                //2025/1/5 NAYAYAMA add_st
+                //2025/1/5 NAKAYAMA add_st
                 if (leftPointer <= rightPointer) {
-                //2025/1/5 NAYAYAMA add_end
+                //2025/1/5 NAKAYAMA add_end
                     int tmp = array[leftPointer];
                     array[leftPointer] = array[rightPointer];
                     array[rightPointer] = tmp;
