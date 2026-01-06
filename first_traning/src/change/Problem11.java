@@ -19,6 +19,7 @@ import race.vehicle.parts.NormalPropeller;
 import race.vehicle.parts.PowerEngine;
 import race.vehicle.parts.PowerPropeller;
 import race.vehicle.parts.Propeller;
+import race.vehicle.parts.SuperEngine;
 
 /**
  * 継承、実装の問題
@@ -58,10 +59,20 @@ public class Problem11 {
         Driver driver03 = new ExtremeDriver();
         boat03.ride(driver03);
         boat03.setFuel(100);
+        
+      //2025/1/6 NAKAYAMA add_st        
+        // 4台目のボート
+        Engine engine04 = new SuperEngine();
+        Propeller propeller04 = new PowerPropeller();
+        Boat boat04 = new FastBoat(engine04, propeller04, "04");
+
+        Driver driver04 = new NormalDriver();
+        boat04.ride(driver04);
+        boat04.setFuel(100);
 
 
-        List<Boat> boatList = Arrays.asList(boat01, boat02, boat03);
-
+        List<Boat> boatList = Arrays.asList(boat01, boat02, boat03, boat04);
+      //2025/1/6 NAKAYAMA add_end
         // レースの走行距離
         int mileage = 50;
 
@@ -209,10 +220,7 @@ public class Problem11 {
     public static void graphicalRace(List<Boat> list, int distance) {
 
         Map<String, Integer> distanceMap = list.stream()
-                .collect(Collectors.toMap(
-                        Boat::getBoatName,
-                        b -> 0
-                ));
+                .collect(Collectors.toMap(Boat::getBoatName, b -> 0));
 
         boolean isRace = true;
 
@@ -220,9 +228,8 @@ public class Problem11 {
 
             int fuelZeroCount = 0;
 
-            System.out.println(
-                    String.join("", Collections.nCopies(distance, "=")) + "|ゴール"
-            );
+            // ゴールライン表示
+            System.out.println(String.join("", Collections.nCopies(distance, "=")) + "|ゴール");
 
             for (Boat boat : list) {
 
@@ -234,9 +241,9 @@ public class Problem11 {
                 int totalDistance = distanceMap.get(boat.getBoatName()) + addDistance;
                 distanceMap.put(boat.getBoatName(), totalDistance);
 
+                // 視覚表示
                 int progress = Math.min(totalDistance, distance);
                 String bar = String.join("", Collections.nCopies(progress, ">"));
-
                 System.out.println(bar + boat.getBoatName());
 
                 if (totalDistance >= distance) {
@@ -249,7 +256,7 @@ public class Problem11 {
                 break;
             }
 
-            System.out.println();
+            System.out.println(); // ターン区切り
         }
 
         judge(distanceMap);
