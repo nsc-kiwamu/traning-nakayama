@@ -205,6 +205,54 @@ public class Problem11 {
      * @param list 出場車リスト
      * @param distance 距離
      */
-    public static void graphicalRace(List<Boat> list, int distance) {}
+    	//2025/1/06 NAKAYAMA add_st
+    public static void graphicalRace(List<Boat> list, int distance) {
 
+        Map<String, Integer> distanceMap = list.stream()
+                .collect(Collectors.toMap(
+                        Boat::getBoatName,
+                        b -> 0
+                ));
+
+        boolean isRace = true;
+
+        while (isRace) {
+
+            int fuelZeroCount = 0;
+
+            System.out.println(
+                    String.join("", Collections.nCopies(distance, "=")) + "|ゴール"
+            );
+
+            for (Boat boat : list) {
+
+                if (boat.getFuel() == 0) {
+                    fuelZeroCount++;
+                }
+
+                int addDistance = boat.drive();
+                int totalDistance = distanceMap.get(boat.getBoatName()) + addDistance;
+                distanceMap.put(boat.getBoatName(), totalDistance);
+
+                int progress = Math.min(totalDistance, distance);
+                String bar = String.join("", Collections.nCopies(progress, ">"));
+
+                System.out.println(bar + boat.getBoatName());
+
+                if (totalDistance >= distance) {
+                    isRace = false;
+                }
+            }
+
+            if (fuelZeroCount == list.size()) {
+                System.out.println("ボートの燃料が全て切れたので、レースを中断します");
+                break;
+            }
+
+            System.out.println();
+        }
+
+        judge(distanceMap);
+    }
+    	//2025/1/06 NAKAYAMA add_end
 }
