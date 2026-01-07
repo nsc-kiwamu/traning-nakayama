@@ -18,7 +18,7 @@ public abstract class Creature {
      * デフォルトコンストラクタは許容しない
      */
     private Creature() {
-    };
+    }
 
     /**
      * インスタンス生成時に寿命を決める
