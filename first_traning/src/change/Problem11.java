@@ -11,15 +11,21 @@ import race.Driver;
 import race.ExtremeDriver;
 import race.NormalDriver;
 import race.vehicle.Boat;
+//2025/1/7 NAKAYAMA add_st
+import race.vehicle.Car;
 import race.vehicle.FastBoat;
 import race.vehicle.NormalBoat;
+import race.vehicle.NormalCar;
 import race.vehicle.parts.Engine;
 import race.vehicle.parts.NormalEngine;
 import race.vehicle.parts.NormalPropeller;
+import race.vehicle.parts.NormalTire;
 import race.vehicle.parts.PowerEngine;
 import race.vehicle.parts.PowerPropeller;
 import race.vehicle.parts.Propeller;
-
+import race.vehicle.parts.SuperEngine;
+import race.vehicle.parts.Tire;
+//2025/1/7 NAKAYAMA add_end
 /**
  * 継承、実装の問題
  *
@@ -58,16 +64,48 @@ public class Problem11 {
         Driver driver03 = new ExtremeDriver();
         boat03.ride(driver03);
         boat03.setFuel(100);
+        
+      //2025/1/6 NAKAYAMA add_st        
+        // 4台目のボート
+        Engine engine04 = new SuperEngine();
+        Propeller propeller04 = new PowerPropeller();
+        Boat boat04 = new FastBoat(engine04, propeller04, "04");
+
+        Driver driver04 = new NormalDriver();
+        boat04.ride(driver04);
+        boat04.setFuel(100);
 
 
-        List<Boat> boatList = Arrays.asList(boat01, boat02, boat03);
-
+        List<Boat> boatList = Arrays.asList(boat01, boat02, boat03, boat04);
+      //2025/1/6 NAKAYAMA add_end
         // レースの走行距離
         int mileage = 50;
 
         rase(boatList, mileage);
         graphicalRace(boatList, mileage);
+        
+        //2025/1/7 NAKAYAMA add_st
+     // ================= 車レース =================
 
+     // タイヤ作成
+     Tire tire = new NormalTire();
+
+     // 車1台目
+     Car car01 = new NormalCar(new NormalEngine(), tire, "C01");
+     car01.ride(new NormalDriver());
+     car01.setFuel(100);
+
+     // 車2台目
+     Car car02 = new NormalCar(new SuperEngine(), tire, "C02");
+     car02.ride(new ExtremeDriver());
+     car02.setFuel(100);
+
+     // 車リスト作成
+     List<Car> carList = Arrays.asList(car01, car02);
+
+     // 車レース実行
+     raceCar(carList, 50);
+     //2025/1/7 NAKAYAMA add_end
         /* -- ここから問題 -- */
         /*
          * エンジン、プロペラ、ボート、ドライバーを追加しレースをせよ
@@ -205,6 +243,89 @@ public class Problem11 {
      * @param list 出場車リスト
      * @param distance 距離
      */
-    public static void graphicalRace(List<Boat> list, int distance) {}
+    	//2025/1/06 NAKAYAMA add_st
+    public static void graphicalRace(List<Boat> list, int distance) {
 
+        Map<String, Integer> distanceMap = list.stream()
+                .collect(Collectors.toMap(Boat::getBoatName, b -> 0));
+
+        boolean isRace = true;
+
+        while (isRace) {
+
+            int fuelZeroCount = 0;
+
+            // ゴールライン表示
+            System.out.println(String.join("", Collections.nCopies(distance, "=")) + "|ゴール");
+
+            for (Boat boat : list) {
+
+                if (boat.getFuel() == 0) {
+                    fuelZeroCount++;
+                }
+
+                int addDistance = boat.drive();
+                int totalDistance = distanceMap.get(boat.getBoatName()) + addDistance;
+                distanceMap.put(boat.getBoatName(), totalDistance);
+
+                // 視覚表示
+                int progress = Math.min(totalDistance, distance);
+                String bar = String.join("", Collections.nCopies(progress, ">"));
+                System.out.println(bar + boat.getBoatName());
+
+                if (totalDistance >= distance) {
+                    isRace = false;
+                }
+            }
+
+            if (fuelZeroCount == list.size()) {
+                System.out.println("ボートの燃料が全て切れたので、レースを中断します");
+                break;
+            }
+
+            System.out.println(); // ターン区切り
+        }
+
+        judge(distanceMap);
+    }
+    	//2025/1/06 NAKAYAMA add_end
+    
+    	//2025/1/7 NAKAYAMA add_st
+    public static void raceCar(List<Car> list, int distance) {
+
+        Map<String, Integer> distanceMap = list.stream()
+            .collect(Collectors.toMap(Car::getBoatName, c -> 0));
+
+        boolean isRace = true;
+
+        while (isRace) {
+            int fuelZero = 0;
+
+            for (Car car : list) {
+
+                if (car.getFuel() == 0) {
+                    fuelZero++;
+                }
+
+                int add = car.drive();
+                int total = distanceMap.get(car.getBoatName()) + add;
+                distanceMap.put(car.getBoatName(), total);
+
+                System.out.println(car.getBoatName() + "が" + add + "進みました");
+
+                if (total >= distance) {
+                    isRace = false;
+                }
+            }
+
+            if (fuelZero == list.size()) {
+                System.out.println("車の燃料が全て切れたので、レースを中断します");
+                break;
+            }
+        }
+
+        judge(distanceMap);
+    }
+    	//2025/1/7 NAKAYAMA add_st
+    
 }
