@@ -18,7 +18,7 @@ public class TopWrapper implements StringWrapper {
         StringBuilder sb = new StringBuilder();
 
         // 上の枠
-        for (int i = 0; i < maxLength + 2; i++) {
+        for (int i = 0; i < maxLength ; i++) {
             sb.append(wrapChar);
         }
         sb.append(System.lineSeparator());
