@@ -6,10 +6,10 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
-import race.wrap.BottomWrapper;
-import race.wrap.SideWrapper;
+//2025/1/8 NAKAYAMA add_st
+import race.wrap.AllWrapper;
 import race.wrap.StringWrapper;
-
+//2025/1/8 NAKAYAMA add_end
 /**
  * 入出力の問題
  *
@@ -81,11 +81,10 @@ public class Problem13 {
             e.printStackTrace();
         }
 
-        // 横と下をラップする
-        StringWrapper side = new SideWrapper();
-        StringWrapper bottom = new BottomWrapper();
-        System.out.println(bottom.wrap(side.wrap(inputStr, '*'), '*'));
-
+      //2025/1/8 NAKAYAMA add_st
+        StringWrapper all = new AllWrapper();
+        System.out.println(all.wrap(inputStr, '*'));
+        //2025/1/8 NAKAYAMA add_end
     }
 
     /**
@@ -129,11 +128,10 @@ public class Problem13 {
         }
 
 
-        // 横と下をラップする
-        StringWrapper side = new SideWrapper();
-        StringWrapper bottom = new BottomWrapper();
-        System.out.println(bottom.wrap(side.wrap(build.toString(), '|'), '-'));
-
+        //2025/1/8 NAKAYAMA add_st
+        StringWrapper all = new AllWrapper();
+        System.out.println(all.wrap(build.toString(), '*'));
+        //2025/1/8 NAKAYAMA add_end
     }
 
 }
