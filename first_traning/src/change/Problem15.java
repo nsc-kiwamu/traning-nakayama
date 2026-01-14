@@ -13,13 +13,7 @@ import io.rebuilding.SampleManager;
 import io.rebuilding.SimpleRule;
 
 /**
- * 入出力の問題 完全版
- *
- * 問題①：NestSearchでサブディレクトリも対象
- * 問題②：文章中の「。」の後に改行を追加
- * 問題③：文字コードを意識せずバイナリコピーも可能
- *
- * ※問題②と③を完全に両立させる場合、ファイルがテキストであることが前提
+ * 入出力の問題 完全版（①②③対応）
  */
 public class Problem15 {
 
@@ -33,9 +27,6 @@ public class Problem15 {
 
     /**
      * 統合版マネージャークラス
-     * ・問題①：NestSearchでサブディレクトリも対象
-     * ・問題②：文章の「。」の後に改行を追加
-     * ・問題③：文字コードに依存せず、バイナリコピーも可能
      */
     static class MyIntegratedManager extends SampleManager {
 
@@ -48,7 +39,7 @@ public class Problem15 {
             // 1. 親クラスでファイル構成を再編成
             super.rebuild(sourceDir);
 
-            // 2. 全ファイルを取得
+            // 2. 全ファイルを取得（再編成後）
             List<Path> files;
             try {
                 files = getAllFiles(sourceDir);
@@ -60,24 +51,22 @@ public class Problem15 {
             // 3. 各ファイルを加工
             for (Path file : files) {
                 try {
-                    // まずバイナリコピーを保持（問題③対応）
                     byte[] originalData = Files.readAllBytes(file);
 
-                    // ここから文字列加工（問題②対応）
-                    // ※文字化けを避けるため UTF-8 に変換可能な場合のみ
-                    String content;
+                    // 文字列変換可能な場合のみ「。」後改行
+                    String content = null;
                     try {
                         content = new String(originalData, "UTF-8");
                     } catch (Exception e) {
-                        // 文字列変換できない場合はバイナリコピーだけにする
+                        // UTF-8 に変換できない場合はバイナリコピーのみ
                         Files.write(file, originalData);
                         continue;
                     }
 
-                    // 「。」の後に改行を入れる
-                    String processed = content.replaceAll("。", "。\n");
+                    // 「。」の後に改行（すでに改行がある場合は重複回避）
+                    String processed = content.replaceAll("。(?!\\n)", "。\n");
 
-                    // 加工後をバイト列に変換して上書き
+                    // バイト列に変換して書き込み
                     Files.write(file, processed.getBytes("UTF-8"));
 
                 } catch (IOException e) {
@@ -87,7 +76,7 @@ public class Problem15 {
         }
 
         /**
-         * ディレクトリ以下のすべてのファイルを取得するヘルパーメソッド
+         * ディレクトリ以下のすべてのファイルを取得する
          */
         private List<Path> getAllFiles(Path dir) throws IOException {
             return Files.walk(dir)
