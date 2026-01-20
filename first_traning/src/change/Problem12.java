@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import race.CarefulDriver;
 import race.Driver;
 import race.ExtremeDriver;
 import race.NormalDriver;
@@ -14,6 +15,8 @@ import race.vehicle.Boat;
 import race.vehicle.FastBoat;
 import race.vehicle.NormalBoat;
 import race.vehicle.Vehicle;
+import race.vehicle.parts.EcoEngine;
+import race.vehicle.parts.EcoPropeller;
 import race.vehicle.parts.Engine;
 import race.vehicle.parts.NormalEngine;
 import race.vehicle.parts.NormalPropeller;
@@ -59,8 +62,19 @@ public class Problem12 {
         Driver driver03 = new ExtremeDriver();
         boat03.ride(driver03);
         boat03.setFuel(100);
+        
+     // 4台目のボートを作る
+      //2025/1/7 NAKAYAMA add_st
+        Engine engine04 = new EcoEngine();
+        Propeller propeller04 = new EcoPropeller();
+        Boat boat04 = new NormalBoat(engine04, propeller04, "04");
 
-        List<Vehicle> boatList = Arrays.asList(boat01, boat02, boat03);
+        Driver driver04 = new CarefulDriver();
+        boat04.ride(driver04);
+        boat04.setFuel(100);
+
+        List<Vehicle> boatList = Arrays.asList(boat01, boat02, boat03, boat04);
+      //2025/1/7 NAKAYAMA add_end
 
         // レースの走行距離
         int mileage = 50;
@@ -117,43 +131,55 @@ public class Problem12 {
      * @param distance 距離
      */
     public static void rase(List<Vehicle> list, int distance) {
-        // 出場車のリストを表示する
-        list.stream().forEach(boat -> boat.outputInfo());
 
-        // それぞれのボートが進んだ距離を保持するマップを作成する
+        // 出場車のリストを表示
+        list.forEach(Vehicle::outputInfo);
+
         Map<String, Integer> distanceMap = list.stream()
                 .collect(Collectors.toMap(
-                        (Vehicle s) -> s.getBoatName(), // キーをボートの番号にする
-                        (Vehicle s) -> 0)); // 値は進んだ距離のため0固定にする
+                        Vehicle::getBoatName,
+                        s -> 0));
 
         boolean isRace = true;
 
-        // どれかがゴールするまで続ける
         do {
+            // ★ 追加：誰かが進んだか判定
+            boolean someoneMoved = false;
+
             for (Vehicle boat : list) {
                 int addDistance = boat.drive();
                 System.out.println(boat.getBoatName() + "が" + addDistance + "進みました");
 
-                // 進んだ距離をマップに設定する
-                int curDistance = distanceMap.get(boat.getBoatName());
-                distanceMap.put(boat.getBoatName(), curDistance + addDistance);
+                if (addDistance > 0) {
+                    someoneMoved = true;
+                }
+
+                distanceMap.put(
+                        boat.getBoatName(),
+                        distanceMap.get(boat.getBoatName()) + addDistance
+                );
             }
 
-            // 進んだ距離の累計とゴール判定
             for (String key : distanceMap.keySet()) {
-                // 進んだ距離の累計を取得
                 int curDistance = distanceMap.get(key);
                 System.out.println(key + "がトータルで" + curDistance + "進みました");
 
-                if (curDistance > distance) {
+                if (curDistance >= distance) {
                     isRace = false;
                 }
             }
-        } while(isRace);
 
-        // 結果を出力
+            // ★ 追加：全艇燃料切れ
+            if (!someoneMoved) {
+                System.out.println("全てのボートの燃料が切れました。レースを中断します。");
+                break;
+            }
+
+        } while (isRace);
+
         judge(distanceMap);
     }
+
 
     /**
      * 走行距離から着順を決める
@@ -196,6 +222,67 @@ public class Problem12 {
      * @param list 出場車リスト
      * @param distance 距離
      */
-    public static void graphicalRace(List<Vehicle> list, int distance) {}
+  //2025/1/7 NAKAYAMA add_st
+    public static void graphicalRace(List<Vehicle> list, int distance) {
 
+        Map<String, Integer> distanceMap = list.stream()
+                .collect(Collectors.toMap(
+                        Vehicle::getBoatName,
+                        s -> 0));
+
+        boolean isRace = true;
+
+        while (isRace) {
+            boolean someoneMoved = false;
+
+            for (Vehicle boat : list) {
+                int add = boat.drive();
+                if (add > 0) {
+                    someoneMoved = true;
+                }
+
+                distanceMap.put(
+                        boat.getBoatName(),
+                        distanceMap.get(boat.getBoatName()) + add
+                );
+            }
+
+            // ゴールライン表示
+            System.out.println("==================================================|ゴール");
+
+            for (Vehicle boat : list) {
+                int cur = distanceMap.get(boat.getBoatName());
+
+                // 「>」の数で進捗を表現
+                String bar = "";
+                for (int i = 0; i < cur / 3; i++) {
+                    bar += ">>>";
+                }
+                System.out.println(bar + boat.getBoatName());
+
+                if (cur >= distance) {
+                    isRace = false;
+                }
+            }
+
+            System.out.println();
+
+            // 全艇燃料切れ
+            if (!someoneMoved) {
+                System.out.println("全てのボートの燃料が切れました。レースを中断します。");
+                break;
+            }
+
+            try {
+                Thread.sleep(500);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+
+        judge(distanceMap);
+      //2025/1/7 NAKAYAMA add_end
+    }
 }
+
+
